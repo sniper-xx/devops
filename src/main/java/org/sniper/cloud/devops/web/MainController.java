@@ -14,6 +14,6 @@ public class MainController {
 
     @GetMapping("/index")
     public String sayHello(@RequestParam(value = "name",required = false,defaultValue = "world")String name){
-        return "hello "+name;
+        return "你好:  "+name+" !";
     }
 }
