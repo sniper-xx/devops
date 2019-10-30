@@ -5,15 +5,18 @@
  **/
 package org.sniper.cloud.devops.web;
 
+import com.google.common.collect.ImmutableMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 public class MainController {
 
     @GetMapping("/index")
-    public String sayHello(@RequestParam(value = "name",required = false,defaultValue = "world")String name){
-        return "你好:  "+name+" !";
+    public Map<String,String> sayHello(@RequestParam(value = "name",required = false,defaultValue = "world")String name){
+        return ImmutableMap.of("name",name);
     }
 }
