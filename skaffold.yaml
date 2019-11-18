@@ -1,0 +1,27 @@
+apiVersion: skaffold/v1
+kind: Config
+build:    # build部分与deploy部分是独立的，可以随意组合
+  artifacts:
+    - image: registry.hub.docker.com/zhouxb009/dev
+      jib:
+        args:
+          #- -DsendCredentialsOverHttp=true
+          - -DskipTests
+        type: maven
+  insecureRegistries:
+    - 118.184.216.160:9000
+  tagPolicy:
+    sha256: {}
+    #dateTime:   #image tag
+    #  format: "2006-01-02-15-04-05"
+    #  timezone: "Local"
+  local:
+    push: true
+deploy:
+  kubectl:
+    manifests:
+      - app.yaml
+    flags:
+      apply:
+        - --force=true
+        - --grace-period=0

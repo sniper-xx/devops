@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-tekton
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: demo-tekton
+  template:
+    metadata:
+      labels:
+        name: demo-tekton
+    spec:
+      containers:
+        - name: demo-tekton-test
+          image: registry.hub.docker.com/zhouxb009/dev  #会自动引用下面的image tag版本
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-tekton-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    name: demo-tekton
