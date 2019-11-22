@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: sniper-app-system
   labels:
-    name: sniper-app-system
+    env: dev
 
 ---
 apiVersion: apps/v1

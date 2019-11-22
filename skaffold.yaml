@@ -11,10 +11,10 @@ build:    # build部分与deploy部分是独立的，可以随意组合
   insecureRegistries:
     - docker.hirisun.com
   tagPolicy:
-    sha256: {}
-    #dateTime:   #image tag
-    #  format: "2006-01-02-15-04-05"
-    #  timezone: "Local"
+    #sha256: {}
+    dateTime:   #image tag, 标准时间格式：2006-01-02_15-04-05.999_MST
+      format: 2006-01-02-15-04
+      timezone: Local
   local:
     push: true
 deploy:
