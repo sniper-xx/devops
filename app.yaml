@@ -2,31 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demo-tekton
+  namespace: sniper-app-system
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: demo-tekton
+      app: demo-tekton
   template:
     metadata:
       labels:
-        name: demo-tekton
+        app: demo-tekton
+        version: v1
     spec:
       containers:
-        - name: demo-tekton-test
-          image: registry.hub.docker.com/zhouxb009/dev  #会自动引用下面的image tag版本
+        - name: demo-tekton
+          image: docker.hirisun.com/demo-springboot  #会自动引用下面的image tag版本
           ports:
             - containerPort: 8080
+              protocol: TCP
+              name: tcp
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: demo-tekton-service
+  namespace: sniper-app-system
 spec:
-  type: NodePort
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
-      protocol: TCP
   selector:
-    name: demo-tekton
+    app: demo-tekton
+    version: v1

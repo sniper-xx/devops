@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: demo-springboot
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`admin.app.hirisun.com`) && PathPrefix(`/`)
+      kind: Rule
+      priority: 1
+      services:
+        - name: demo-tekton-service
+          port: 8080

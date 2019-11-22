@@ -2,14 +2,14 @@ apiVersion: skaffold/v1
 kind: Config
 build:    # build部分与deploy部分是独立的，可以随意组合
   artifacts:
-    - image: registry.hub.docker.com/zhouxb009/dev
+    - image: docker.hirisun.com/demo-springboot #registry.hub.docker.com/zhouxb009/dev
       jib:
         args:
           #- -DsendCredentialsOverHttp=true
           - -DskipTests
         type: maven
   insecureRegistries:
-    - 118.184.216.160:9000
+    - docker.hirisun.com
   tagPolicy:
     sha256: {}
     #dateTime:   #image tag
@@ -21,6 +21,7 @@ deploy:
   kubectl:
     manifests:
       - app.yaml
+      - istio.yaml
     flags:
       apply:
         - --force=true
